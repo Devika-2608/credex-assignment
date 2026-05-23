@@ -37,3 +37,25 @@ Initially confused about updating nested form data in React state, but understoo
 
 Plan for tomorrow:
 Implement the audit calculation logic and display estimated monthly and yearly savings dynamically.
+
+
+
+Day 3 - 23-05-2026
+
+Hours worked: 4
+
+What I did:
+Created a reuable audit engine in a separate lib/auditEngine.ts file to handle AI spend analysis logic.
+Added pricing data for multiple AI tools and implemented recommendation logic to detect overspending scenarios based on team size, plan type, and monthly spend.
+Integrated the audit engine with the frontend form and built a result page showing monthly and annual savings recommendations.
+Also created PRICING_DATA.md with official vendor pricing sources and added conditional logic to avoid showing insignificant recommendations under $10 savings.
+
+What I learned:
+Learned how to separate business logic from frontend UI logic, how conditional recommendation systems work, and how Typescript types help structure application data safely.
+Improved understanding of React state flow between form submission and results rendering.
+
+Blockers/what I'm stuck on:
+Spent some time debugging conditional pricing calculations and making sure savings numbers updated correctly for different plans and seat counts.
+
+Plans for tomorrow:
+Implement form persistence using localStorage, add email capture functionality, and begin integrating AI-generated summaries using an API.
