@@ -59,3 +59,22 @@ Spent some time debugging conditional pricing calculations and making sure savin
 
 Plans for tomorrow:
 Implement form persistence using localStorage, add email capture functionality, and begin integrating AI-generated summaries using an API.
+
+
+Day 4 - 2026-05-24
+
+Hours worked: 5
+
+What I did: 
+Added Supabase database, created API routes for saving leads and AI summary, integrated Anthropic Claude API for personalized summaries, built email capture flow
+
+
+What I learned: 
+How to set up PostgreSQL tables, API routes in Next.js, handle API failures gracefully, environment variables for secrets
+
+
+Blockers / what I'm stuck on: 
+None — AI API working, database saving correctly
+
+
+Plan for tomorrow: Add shareable URLs and deploy to production
