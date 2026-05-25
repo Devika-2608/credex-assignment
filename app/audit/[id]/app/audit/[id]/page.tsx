@@ -1,0 +1,117 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { TrendingDown } from "lucide-react";
+
+type SavedAudit = {
+    id: string;
+    tools: any[];
+    recommendations: any[];
+    totalMonthlySavings: number;
+    totalAnnualSavings: number;
+    aiSummary: string;
+    createdAt: string;
+};
+
+export default function SharedAuditPage({ params }: { params: { id: string } }) {
+    const [audit, setAudit] = useState<SavedAudit | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        async function fetchAudit() {
+            try {
+                const response = await fetch(`/api/audit/${params.id}`);
+                if (!response.ok) throw new Error("Audit not found");
+                const data = await response.json();
+                setAudit(data);
+            } catch (err) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchAudit();
+    }, [params.id]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-pulse text-2xl">Loading audit report...</div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error || !audit) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white flex items-center justify-center">
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold mb-4">Audit Not Found</h1>
+                    <p className="text-slate-300">The audit report doesn't exist or has been removed.</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8">
+            <div className="max-w-4xl mx-auto">
+                {/* Header Section */}
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 bg-green-500/20 px-4 py-2 rounded-full mb-4">
+                        <TrendingDown className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 font-medium">AI Spend Audit Report</span>
+                    </div>
+                    <h1 className="text-5xl font-bold mb-4">
+                        Save ${audit.totalMonthlySavings.toLocaleString()}/month
+                    </h1>
+                    <p className="text-2xl text-slate-300">
+                        That's ${audit.totalAnnualSavings.toLocaleString()}/year
+                    </p>
+                </div>
+
+                {/* AI Summary */}
+                {audit.aiSummary && (
+                    <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-6 mb-8">
+                        <h3 className="font-semibold text-purple-400 mb-2">AI-Powered Summary</h3>
+                        <p className="text-slate-200">{audit.aiSummary}</p>
+                    </div>
+                )}
+
+                {/* Recommendations */}
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-semibold mb-4">Recommendations</h2>
+                    {audit.recommendations.map((rec, idx) => (
+                        <div key={idx} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                            <div className="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 className="text-xl font-bold">{rec.toolName}</h3>
+                                    <p className="text-slate-400 text-sm">Current: ${rec.currentPlan} plan</p>
+                                </div>
+                                <div className="text-right">
+                                    <div className="text-2xl font-bold text-green-400">
+                                        ${rec.monthlySavings}/month
+                                    </div>
+                                    <div className="text-sm text-green-400">
+                                        ${rec.annualSavings}/year saved
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-slate-900 rounded-lg p-4">
+                                <p className="font-medium text-blue-400 mb-1">→ {rec.recommendedAction}</p>
+                                <p className="text-slate-300 text-sm">{rec.reason}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-12 text-center text-slate-400 text-sm">
+                    <p>Generated by AI Spend Auditor - Find savings on your AI tools</p>
+                </div>
+            </div>
+        </main>
+    );
+}

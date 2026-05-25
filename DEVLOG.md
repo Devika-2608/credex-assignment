@@ -65,16 +65,60 @@ Day 4 - 2026-05-24
 
 Hours worked: 5
 
-What I did: 
-Added Supabase database, created API routes for saving leads and AI summary, integrated Anthropic Claude API for personalized summaries, built email capture flow
+What I did:
+Integrated Supabase as the backend database
+Created API routes in Next.js for saving lead data
+Added Anthropic Claude API integration to generate AI summaries
+Built an email capture workflow after showing audit results
+Added fallback handling if the AI API fails
+
+What I learned:
+How API routes work in the Next.js App Router
+How environment variables are used securely
+How frontend and backend communicate using fetch()
+Basic PostgreSQL table structure using Supabase
+Why fallback responses are important for production reliability
+
+Challenges:
+Understanding how async API calls work
+Managing loading states while waiting for AI responses
+Learning how to structure request payloads between frontend and backend
+
+How I solved them:
+Tested API routes separately using console logs
+Used loading states to improve UX
+Added fallback summaries so the app still works if the AI request fails
+
+Plan for tomorrow:
+Add shareable audit links and deploy the application publicly
 
 
-What I learned: 
-How to set up PostgreSQL tables, API routes in Next.js, handle API failures gracefully, environment variables for secrets
+Day 5 - 25-05-2026
 
+Hours worked: 4
 
-Blockers / what I'm stuck on: 
-None — AI API working, database saving correctly
+What I did:
+Added dynamic shareable audit report URLs using UUIDs
+Built a public audit results page using dynamic routing
+Added Open Graph image generation for social sharing previews
+Connected saved reports to database retrieval APIs
+Deployed the application to Vercel production hosting
 
+What I learned:
+How dynamic routes work in Next.js App Router
+How production environment variables differ from local development
+How Open Graph metadata improves link previews
+How deployment pipelines work with GitHub and Vercel
 
-Plan for tomorrow: Add shareable URLs and deploy to production
+Challenges:
+Understanding dynamic route folder structure
+Handling database schema updates safely
+Configuring environment variables correctly in production
+
+How I solved them:
+Used UUIDs to create unique public report links
+Tested routes locally before deployment
+Verified API functionality separately before connecting frontend UI
+
+Plan for tomorrow:
+Finalize documentation and polish the project for submission
